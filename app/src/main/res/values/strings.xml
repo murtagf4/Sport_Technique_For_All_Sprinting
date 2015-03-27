@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sport Technique for All: Sprinting</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="newSession">Start a New Session</string>
+    <string name="myVideos">My Videos</string>
+    <string name="help">Help and Tips</string>
+    <string name="analyseVideo">Analyse a Video</string>
+    <string name="title_activity_help_screen">HelpScreen</string>
+    <string name="title_activity_video_display">VideoDisplay</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
+</resources>

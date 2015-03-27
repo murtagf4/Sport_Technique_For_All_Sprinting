@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('mongo-java-driver-2.13.0.jar'))
