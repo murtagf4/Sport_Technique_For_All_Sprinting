@@ -23,12 +23,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 public class CameraActivity extends Activity
@@ -39,9 +42,10 @@ public class CameraActivity extends Activity
     public static final int MEDIA_TYPE_VIDEO = 1;
     Intent intentVideo;
     VideoView videoDisplay;
+    private SeekBar seekbar;
     private Uri fileUri;
     private String stringUri;
-    private String username;
+    private String username = "Fergus";
     ImageButton controlButton;
     boolean isPlaying = true;
 
@@ -108,13 +112,34 @@ public class CameraActivity extends Activity
             {
                 videoDisplay = (VideoView) findViewById(R.id.videoView);
                 videoDisplay.setOnPreparedListener(pListener);
+                videoDisplay.setOnCompletionListener(clistener);
                 videoDisplay.setVideoPath(fileUri.getPath());
-                videoDisplay.start();
+
+                controlButton = (ImageButton) findViewById(R.id.play_button);
+
+                seekbar = (SeekBar) findViewById(R.id.seekbarMain);
+                seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+                {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+                    {
+                        videoDisplay.seekTo(progress);
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar)
+                    {
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar)
+                    {
+                    }
+                });
 
                 //videoPlayback();
                 // Video captured and saved to fileUri Intent
                 stringUri = fileUri.toString();
-                username = "Fergus";
 
                 Video myVideo = new Video();
                 myVideo.id = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
@@ -146,13 +171,33 @@ public class CameraActivity extends Activity
         public void onPrepared(MediaPlayer mp)
         {
             mp.setVolume(0f, 0f);
+            seekbar.postDelayed(incrementSeekbar, 1000);
+        }
+    };
+
+    private Runnable incrementSeekbar = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            seekbar.setProgress(videoDisplay.getCurrentPosition());
+            seekbar.setMax(videoDisplay.getDuration());
+            seekbar.postDelayed(incrementSeekbar, 1000);
+        }
+    };
+
+    MediaPlayer.OnCompletionListener clistener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp)
+        {
+            controlButton.setImageResource(R.drawable.ic_action_play);
+            seekbar.setProgress(0);
         }
     };
 
     public void playPause(View view)
     {
-        controlButton = (ImageButton) findViewById(R.id.play_button);
-        if(isPlaying)
+        if(videoDisplay.isPlaying())
         {
             controlButton.setImageResource(R.drawable.ic_action_play);
             videoDisplay.pause();
@@ -236,27 +281,5 @@ public class CameraActivity extends Activity
             return mediaFile;
         }
         return null;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
