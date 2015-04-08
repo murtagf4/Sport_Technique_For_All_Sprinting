@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -42,6 +43,7 @@ public class CameraActivity extends Activity
     public static final int MEDIA_TYPE_VIDEO = 1;
     Intent intentVideo;
     VideoView videoDisplay;
+    TextView timeText;
     private SeekBar seekbar;
     private Uri fileUri;
     private String stringUri;
@@ -50,7 +52,6 @@ public class CameraActivity extends Activity
     boolean isPlaying = true;
 
     DisplayMetrics metrics;
-    SurfaceView surfaceView;
     MediaController controller;
 
     private String device;
@@ -111,11 +112,12 @@ public class CameraActivity extends Activity
             if (resultCode == RESULT_OK)
             {
                 videoDisplay = (VideoView) findViewById(R.id.videoView);
-                videoDisplay.setOnPreparedListener(pListener);
-                videoDisplay.setOnCompletionListener(clistener);
+                videoDisplay.setOnPreparedListener(prepareListener);
+                videoDisplay.setOnCompletionListener(completelistener);
                 videoDisplay.setVideoPath(fileUri.getPath());
 
                 controlButton = (ImageButton) findViewById(R.id.play_button);
+                timeText = (TextView) findViewById(R.id.textviewTime);
 
                 seekbar = (SeekBar) findViewById(R.id.seekbarMain);
                 seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
@@ -124,6 +126,7 @@ public class CameraActivity extends Activity
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
                     {
                         videoDisplay.seekTo(progress);
+                        timeText.setText(String.valueOf(videoDisplay.getCurrentPosition()/1000 + "." + videoDisplay.getCurrentPosition()%1000));
                     }
 
                     @Override
@@ -137,7 +140,6 @@ public class CameraActivity extends Activity
                     }
                 });
 
-                //videoPlayback();
                 // Video captured and saved to fileUri Intent
                 stringUri = fileUri.toString();
 
@@ -165,7 +167,7 @@ public class CameraActivity extends Activity
         }
     }
 
-    MediaPlayer.OnPreparedListener pListener = new MediaPlayer.OnPreparedListener()
+    MediaPlayer.OnPreparedListener prepareListener = new MediaPlayer.OnPreparedListener()
     {
         @Override
         public void onPrepared(MediaPlayer mp)
@@ -186,7 +188,7 @@ public class CameraActivity extends Activity
         }
     };
 
-    MediaPlayer.OnCompletionListener clistener = new MediaPlayer.OnCompletionListener() {
+    MediaPlayer.OnCompletionListener completelistener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp)
         {
@@ -226,7 +228,7 @@ public class CameraActivity extends Activity
 
             controller = new MediaController(this);
             videoDisplay.setMediaController(controller);
-            videoDisplay.setOnPreparedListener(pListener);
+            videoDisplay.setOnPreparedListener(prepareListener);
             videoDisplay.start();
         }
         catch (Exception e)

@@ -18,7 +18,7 @@ public class HomeActivity extends ActionBarActivity
 
     public void startSession(View view)
     {
-        Intent intent1 = new Intent(this, CameraActivity.class);
+        Intent intent1 = new Intent(this, PreviewActivity.class);
         startActivity(intent1);
     }
 

@@ -31,6 +31,14 @@
             android:layout_marginBottom="10dp"
             android:onClick="playPause"/>
 
+        <TextView
+            android:id="@+id/textviewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="25dp"
+            android:textColor="#FFFFFF" />
+
     </FrameLayout>
 
     <SeekBar
@@ -42,6 +50,6 @@
         android:layout_alignStart="@+id/videoFrame"
         android:layout_alignRight="@+id/videoFrame"
         android:layout_alignEnd="@+id/videoFrame"
-        android:padding="6dp"/>
+        android:padding="6dp" />
 
 </RelativeLayout>
