@@ -1,35 +1,44 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:background="#333333" >
 
+    <ImageButton
+        android:id="@+id/drawButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#FF6262"
+        android:src="@mipmap/ic_line_icon"
+        android:onClick="startDrawing"/>
+
+    <ImageButton
+        android:id="@+id/sideBySide"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/drawButton"
+        android:layout_marginTop="20dp"
+        android:background="#FF6262"
+        android:src="@mipmap/ic_side_by_side"
+        android:padding="0dp"
+        android:onClick="advanceSide" />
+
     <FrameLayout
         android:id="@+id/videoFrame"
-        android:layout_width="400dp"
-        android:layout_height="250dp"
-        android:layout_centerVertical="true"
+        android:layout_width="430dp"
+        android:layout_height="240dp"
         android:layout_centerHorizontal="true">
 
         <VideoView
             android:id="@+id/videoView"
-            android:layout_width="400dp"
-            android:layout_height="250dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-        <ImageButton
-            android:id="@+id/play_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_action_play"
-            android:background="@android:color/transparent"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="10dp"
-            android:onClick="playPause"/>
+            android:layout_width="430dp"
+            android:layout_height="300dp" />
 
         <TextView
             android:id="@+id/textviewTime"
@@ -38,18 +47,28 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="25dp"
             android:textColor="#FFFFFF" />
-
     </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/play_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_action_play"
+        android:background="@android:color/transparent"
+        android:onClick="playPause"
+        android:layout_below="@+id/videoFrame"
+        android:layout_alignLeft="@+id/videoFrame"
+        android:layout_alignStart="@+id/videoFrame" />
 
     <SeekBar
         android:id="@+id/seekbarMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/videoFrame"
-        android:layout_alignStart="@+id/videoFrame"
+        android:layout_below="@+id/videoFrame"
         android:layout_alignRight="@+id/videoFrame"
         android:layout_alignEnd="@+id/videoFrame"
-        android:padding="6dp" />
+        android:layout_toRightOf="@+id/play_button"
+        android:layout_toEndOf="@+id/play_button"
+        android:layout_marginTop="15dp"/>
 
 </RelativeLayout>

@@ -15,7 +15,6 @@ import android.provider.Settings.Secure;
  */
 public class SaveMongoInstance extends AsyncTask<Video, Void, Boolean>
 {
-
     @Override
     protected Boolean doInBackground(Video... arg0)
     {

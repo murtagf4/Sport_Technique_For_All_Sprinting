@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -18,9 +19,11 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.SeekBar;
@@ -37,28 +40,30 @@ import java.util.logging.LogRecord;
 
 public class CameraActivity extends Activity
 {
-
     private static final int VIDEO_REQUEST_CODE = 200;
-    private static final String TAG = CameraActivity.class.getSimpleName();
-    public static final int MEDIA_TYPE_VIDEO = 1;
-    Intent intentVideo;
-    VideoView videoDisplay;
-    TextView timeText;
+   // private static final String TAG = CameraActivity.class.getSimpleName();
+    public final int MEDIA_TYPE_VIDEO = 1;
+    private Intent intentVideo;
+    private VideoView videoDisplay;
+    private TextView timeText;
     private SeekBar seekbar;
     private Uri fileUri;
     private String stringUri;
     private String username = "Fergus";
-    ImageButton controlButton;
+    private ImageButton controlButton;
     boolean isPlaying = true;
 
-    DisplayMetrics metrics;
-    MediaController controller;
+    private FrameLayout frameLayout;
+    private DrawingSurface drawSurface;
+    SurfaceHolder holder;
+    int buttonClick = 0;
+    private static final String TAG = "Tag";
 
     private String device;
 
     private boolean isCameraSupported()
     {
-        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
+        if(getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
         {
             // this device has a camera
             return true;
@@ -91,12 +96,10 @@ public class CameraActivity extends Activity
 
         //These lines are moved to move to next view
         intentVideo.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
-        intentVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 3);
-        //intentVideo.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        //intentVideo.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, Configuration.ORIENTATION_LANDSCAPE);
+        intentVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 2);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
+        fileUri = saveOutputMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
         intentVideo.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  // set the image file name
 
         // start the Video Capture Intent
@@ -106,7 +109,6 @@ public class CameraActivity extends Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        //super.onActivityResult(requestCode, resultCode, intentVideo);
         if (requestCode == VIDEO_REQUEST_CODE)
         {
             if (resultCode == RESULT_OK)
@@ -176,6 +178,14 @@ public class CameraActivity extends Activity
             seekbar.postDelayed(incrementSeekbar, 1000);
         }
     };
+    MediaPlayer.OnCompletionListener completelistener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp)
+        {
+            controlButton.setImageResource(R.drawable.ic_action_play);
+            seekbar.setProgress(0);
+        }
+    };
 
     private Runnable incrementSeekbar = new Runnable()
     {
@@ -188,66 +198,66 @@ public class CameraActivity extends Activity
         }
     };
 
-    MediaPlayer.OnCompletionListener completelistener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp)
-        {
-            controlButton.setImageResource(R.drawable.ic_action_play);
-            seekbar.setProgress(0);
-        }
-    };
-
     public void playPause(View view)
     {
-        if(videoDisplay.isPlaying())
+        videoControl(videoDisplay, controlButton);
+    }
+
+    public void videoControl(VideoView vid, ImageButton button)
+    {
+        if(vid.isPlaying())
         {
-            controlButton.setImageResource(R.drawable.ic_action_play);
-            videoDisplay.pause();
+            button.setImageResource(R.drawable.ic_action_play);
+            vid.pause();
         }
         else
         {
-            controlButton.setImageResource(R.drawable.ic_action_pause);
-            videoDisplay.start();
+            button.setImageResource(R.drawable.ic_action_pause);
+            vid.start();
         }
         isPlaying = !isPlaying;
     }
 
-    private void videoPlayback()
-    {
-        try
-        {
-            videoDisplay = (VideoView) findViewById(R.id.videoView);
-            videoDisplay.setVideoPath(fileUri.getPath());
-            metrics = new DisplayMetrics();
-            this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            int height = metrics.heightPixels;
-            int width = metrics.widthPixels;
-            videoDisplay.setMinimumHeight(height);
-            videoDisplay.setMinimumWidth(width);
-            videoDisplay.requestFocus();
+    public void startDrawing(View v)    {
+        buttonClick++;
+        frameLayout = (FrameLayout) findViewById(R.id.videoFrame);
 
-            controller = new MediaController(this);
-            videoDisplay.setMediaController(controller);
-            videoDisplay.setOnPreparedListener(prepareListener);
-            videoDisplay.start();
+        if(videoDisplay.isPlaying())     {
+            Toast.makeText(getApplicationContext(),"Video must be paused to use Drawing tools", Toast.LENGTH_SHORT).show();
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+             {
+            if(buttonClick%2 == 0){
+                frameLayout.removeView(drawSurface);
+            }
+            else{
+                drawSurface = new DrawingSurface(this);
+                holder = drawSurface.getHolder();
+                holder.setFormat(PixelFormat.TRANSPARENT);
+                drawSurface.setZOrderOnTop(true);
+                frameLayout.addView(drawSurface);
+            }
         }
+        Log.d(TAG, "Buttonclick = " + buttonClick);
+    }
+
+    public void advanceSide(View view)
+    {
+        Intent i = new Intent(this, ComparisonActivity.class);
+        i.setData(fileUri);
+        startActivity(i);
     }
 
 
     /** Create a file Uri for saving an image or video to specific folder
      * https://developer.android.com/guide/topics/media/camera.html#saving-media
      * */
-    private static Uri getOutputMediaFileUri(int type)
+    public Uri saveOutputMediaFileUri(int type)
     {
-        return Uri.fromFile(getOutputMediaFile(type));
+        return Uri.fromFile(saveOutputMediaFile(type));
     }
 
     /** Create a File for saving an image or video */
-    private static File getOutputMediaFile(int type)
+    public File saveOutputMediaFile(int type)
     {
         // To be safe, you should check that the SDCard is mounted
 
