@@ -264,7 +264,7 @@ public class CameraActivity extends Activity
         if(Environment.getExternalStorageState() != null)
         {
             // this works for Android 2.2 and above
-            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCamera");
+            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "SprintVideos");
 
             // This location works best if you want the created images to be shared
             // between applications and persist after your app has been uninstalled.

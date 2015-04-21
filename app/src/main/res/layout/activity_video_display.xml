@@ -1,18 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/widget32"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/displayhistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.52"
-        android:overScrollMode="ifContentScrolls"
-        android:scrollHorizontally="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <ListView
+        android:id="@android:id/list"
         android:scrollbars="vertical"
-        android:textSize="30sp" />
-
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="fill_vertical"
+        android:layout_weight="1" />
 
 </LinearLayout>

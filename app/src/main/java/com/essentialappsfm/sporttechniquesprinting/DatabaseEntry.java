@@ -28,14 +28,14 @@ public class DatabaseEntry
     // generate full URL for connecting to specific mongo instance for each unique device
     public String buildMongoUrl(String deviceId)
     {
-        return getMainUrl()+deviceId+apiUrl();
+        return getMainUrl() + deviceId + apiUrl();
     }
 
     // foramts the details of each video to be shown
     public String createVideoDetails(Video video)
     {
-        return String.format("{\"document\"  : {\"user\": \"%s\", "
-                        + "\"vidPath\": \"%s\"}, \"safe\" : true}",
+        return String.format("{\"user\": \"%s\", "
+                        + "\"vidPath\": \"%s\"}",
                 video.user, video.vidPath);
     }
 }

@@ -40,7 +40,8 @@ public class SaveMongoInstance extends AsyncTask<Video, Void, Boolean>
             {
                 return false;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             //e.getCause();
             String val = e.getMessage();
             String val2 = val;
