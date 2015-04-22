@@ -89,7 +89,6 @@ public class CameraActivity extends Activity
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera_view);
 
         //create new Intent
         intentVideo = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -113,35 +112,6 @@ public class CameraActivity extends Activity
         {
             if (resultCode == RESULT_OK)
             {
-                videoDisplay = (VideoView) findViewById(R.id.videoView);
-                videoDisplay.setOnPreparedListener(prepareListener);
-                videoDisplay.setOnCompletionListener(completelistener);
-                videoDisplay.setVideoPath(fileUri.getPath());
-
-                controlButton = (ImageButton) findViewById(R.id.play_button);
-                timeText = (TextView) findViewById(R.id.textviewTime);
-
-                seekbar = (SeekBar) findViewById(R.id.seekbarMain);
-                seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-                {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-                    {
-                        videoDisplay.seekTo(progress);
-                        timeText.setText(String.valueOf(videoDisplay.getCurrentPosition()/1000 + "." + videoDisplay.getCurrentPosition()%1000));
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar)
-                    {
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar)
-                    {
-                    }
-                });
-
                 // Video captured and saved to fileUri Intent
                 stringUri = fileUri.toString();
 
@@ -154,6 +124,11 @@ public class CameraActivity extends Activity
                 task.execute(myVideo);
 
                 Toast.makeText(this, "Video Saved to:" + stringUri, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(this, AnalyseActivity.class);
+                intent.setData(fileUri);
+                startActivity(intent);
+
             }
             else if (resultCode == RESULT_CANCELED)
             {
@@ -169,40 +144,6 @@ public class CameraActivity extends Activity
         }
     }
 
-    MediaPlayer.OnPreparedListener prepareListener = new MediaPlayer.OnPreparedListener()
-    {
-        @Override
-        public void onPrepared(MediaPlayer mp)
-        {
-            mp.setVolume(0f, 0f);
-            seekbar.postDelayed(incrementSeekbar, 1000);
-        }
-    };
-    MediaPlayer.OnCompletionListener completelistener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp)
-        {
-            controlButton.setImageResource(R.drawable.ic_action_play);
-            seekbar.setProgress(0);
-        }
-    };
-
-    private Runnable incrementSeekbar = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            seekbar.setProgress(videoDisplay.getCurrentPosition());
-            seekbar.setMax(videoDisplay.getDuration());
-            seekbar.postDelayed(incrementSeekbar, 1000);
-        }
-    };
-
-    public void playPause(View view)
-    {
-        videoControl(videoDisplay, controlButton);
-    }
-
     public void videoControl(VideoView vid, ImageButton button)
     {
         if(vid.isPlaying())
@@ -216,35 +157,6 @@ public class CameraActivity extends Activity
             vid.start();
         }
         isPlaying = !isPlaying;
-    }
-
-    public void startDrawing(View v)    {
-        buttonClick++;
-        frameLayout = (FrameLayout) findViewById(R.id.videoFrame);
-
-        if(videoDisplay.isPlaying())     {
-            Toast.makeText(getApplicationContext(),"Video must be paused to use Drawing tools", Toast.LENGTH_SHORT).show();
-        }
-             {
-            if(buttonClick%2 == 0){
-                frameLayout.removeView(drawSurface);
-            }
-            else{
-                drawSurface = new DrawingSurface(this);
-                holder = drawSurface.getHolder();
-                holder.setFormat(PixelFormat.TRANSPARENT);
-                drawSurface.setZOrderOnTop(true);
-                frameLayout.addView(drawSurface);
-            }
-        }
-        Log.d(TAG, "Buttonclick = " + buttonClick);
-    }
-
-    public void advanceSide(View view)
-    {
-        Intent i = new Intent(this, ComparisonActivity.class);
-        i.setData(fileUri);
-        startActivity(i);
     }
 
 

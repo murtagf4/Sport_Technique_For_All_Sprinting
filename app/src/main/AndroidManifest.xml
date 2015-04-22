@@ -71,7 +71,7 @@
         <activity
             android:name=".ComparisonActivity"
             android:label="@string/title_activity_comparison"
-            android:parentActivityName=".CameraActivity"
+            android:parentActivityName=".AnalyseActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -81,7 +81,7 @@
             android:name=".AnalyseActivity"
             android:label="@string/title_activity_analyse"
             android:screenOrientation="landscape"
-            android:parentActivityName=".VideoDisplay" >
+            android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.essentialappsfm.sporttechniquesprinting.VideoDisplay" />
