@@ -16,5 +16,13 @@
     <string name="title_activity_comparison">ComparisonActivity</string>
     <string name="title_activity_analysis">AnalysisActivity</string>
     <string name="title_activity_analyse">AnalyseActivity</string>
+    <string name="title_activity_watch">WatchActivity</string>
+    <string name="h1"><u><i><b>What Is It?</b></i></u></string>
+    <string name="text1">This is a mobile app that analyses sprinting technique from a starting stance in terms of acceleration. It analyses the start stance for the 3 point start. This is the most commmonly used start position in the majority of sports today. The first 3 steps are the most critical parts as these could be the difference between winning and losing for many athletes in their sport  </string>
+    <string name="intro">The video below explains the first 3 steps of the technique</string>
+    <string name="h2"><u><i><b>Capture a Video</b></i></u></string>
+    <string name="text2">&#8211; <b> Fitting in the Outline Image:</b> Fit in the image by standing 5 yards back from the camera. Crouch down with right knee on the ground with both hands on a line and shoulders directly above hands. Raise right knee off the ground until straightened while simultaneously pulling left arm back to 90 degrees until hand is at hip level.\n\n&#8211; Press arrow and start record.\n\n&#8211; The video will last for 2.00 seconds.\n\n&#8211; Press OK/Save. Press Cancel to take another video.</string>
+    <string name="h3"><u><i><b>Analyse A Video</b></i></u></string>
+    <string name="text3">&#8211; <b> Drawing Tool:</b> (Diagonal Line Button) Draw lines and angles over the video. Press button twice to cancel.\n\n&#8211; <b> Side by Side Comparison:</b> (Rectangles Button) Compare taken video with expert video side by side. Videos can be played separately and simultaneously using the bottom play button.\n\n&#8211; <b> Screenshot:</b> While using the tools, work can be saved by screenshotting.</string>
 
-</resources>
+    </resources>

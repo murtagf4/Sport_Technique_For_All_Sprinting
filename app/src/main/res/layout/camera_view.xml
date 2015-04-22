@@ -11,10 +11,20 @@
     android:background="#333333" >
 
     <ImageButton
+        android:id="@+id/home"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#FF6262"
+        android:src="@mipmap/ic_home"
+        android:onClick="returnHome"/>
+
+    <ImageButton
         android:id="@+id/drawButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="#FF6262"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/home"
         android:src="@mipmap/ic_line_icon"
         android:onClick="startDrawing"/>
 

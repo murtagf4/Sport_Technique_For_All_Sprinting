@@ -31,6 +31,7 @@ public class AnalyseActivity extends Activity {
     private static final String TAG = "Tag";
 
     Tools tool;
+    ImageButton homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,5 +128,9 @@ public class AnalyseActivity extends Activity {
         i.setData(userVid);
         startActivity(i);
     }
-}
 
+    public void returnHome(View view){
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
+    }
+}

@@ -35,7 +35,7 @@
         <activity
             android:name=".CameraActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".PreviewActivity"
+            android:parentActivityName=".HomeActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name=".HelpScreen"
-            android:label="@string/title_activity_help_screen"
+            android:label="Helps and Tips"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="landscape" >
             <meta-data
@@ -80,11 +80,20 @@
         <activity
             android:name=".AnalyseActivity"
             android:label="@string/title_activity_analyse"
-            android:screenOrientation="landscape"
-            android:parentActivityName=".HomeActivity" >
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.essentialappsfm.sporttechniquesprinting.VideoDisplay" />
+        </activity>
+        <activity
+            android:name=".WatchActivity"
+            android:label="Tutorial"
+            android:parentActivityName=".HelpScreen"
+            android:screenOrientation="landscape">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.essentialappsfm.sporttechniquesprinting.HelpScreen" />
         </activity>
     </application>
 
