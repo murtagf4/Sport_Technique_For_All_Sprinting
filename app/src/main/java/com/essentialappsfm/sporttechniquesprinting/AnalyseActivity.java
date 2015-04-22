@@ -30,7 +30,7 @@ public class AnalyseActivity extends Activity {
     int buttonClick = 0;
     private static final String TAG = "Tag";
 
-    CameraActivity cam;
+    Tools tool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +95,8 @@ public class AnalyseActivity extends Activity {
 
     public void playPause(View view)
     {
-        cam = new CameraActivity();
-        cam.videoControl(videoDisplay, controlButton);
+        tool = new Tools();
+        tool.videoControl(videoDisplay, controlButton);
     }
 
     public void startDrawing(View v)    {

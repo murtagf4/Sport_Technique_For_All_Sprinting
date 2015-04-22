@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -41,25 +42,13 @@ import java.util.logging.LogRecord;
 public class CameraActivity extends Activity
 {
     private static final int VIDEO_REQUEST_CODE = 200;
-   // private static final String TAG = CameraActivity.class.getSimpleName();
     public final int MEDIA_TYPE_VIDEO = 1;
     private Intent intentVideo;
-    private VideoView videoDisplay;
-    private TextView timeText;
-    private SeekBar seekbar;
     private Uri fileUri;
     private String stringUri;
     private String username = "Fergus";
-    private ImageButton controlButton;
     boolean isPlaying = true;
-
-    private FrameLayout frameLayout;
-    private DrawingSurface drawSurface;
-    SurfaceHolder holder;
-    int buttonClick = 0;
     private static final String TAG = "Tag";
-
-    private String device;
 
     private boolean isCameraSupported()
     {
