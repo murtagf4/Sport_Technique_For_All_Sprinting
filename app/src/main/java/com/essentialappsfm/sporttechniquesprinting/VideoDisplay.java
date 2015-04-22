@@ -1,8 +1,12 @@
 package com.essentialappsfm.sporttechniquesprinting;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Parcel;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,24 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class VideoDisplay extends ListActivity
+public class VideoDisplay extends ActionBarActivity
 {
-    /*ArrayList<Video> mongoValues;
+    private ArrayList<Video> mongoValues;
     private List<String> videos;
-    ArrayAdapter<String> adapter;
-    ListView list;
-
-    DatabaseEntry db;
-    String mongo_url;
-    String user;*/
-
-    ArrayList<Video> returnValues = new ArrayList<Video>();
-    ArrayList<String> listItems = new ArrayList<String>();
-    String valueTOUpdate_id;
-    String valueTOUpdate_fname;
-    String valueTOUpdate_lname;
-    String valueTOUpdate_phone;
-    String valueTOUpdate_email;
+    private ArrayAdapter<String> adapter;
+    private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,58 +48,44 @@ public class VideoDisplay extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_display);
 
+        mongoValues = new ArrayList<>();
+        videos = new ArrayList<>();
+        list = (ListView) findViewById(R.id.listView);
+        fillList();
+        populateListView();
+        registerPress();
+    }
+
+    private void fillList() {
         //Get your cloud contacts
         Video vid1 = new Video();
         vid1.id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         GetMongoInstance task = new GetMongoInstance();
         try {
-            returnValues = task.execute(vid1).get();
+            mongoValues = task.execute(vid1).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        for(Video x: returnValues){
-
-            listItems.add(x.getVidPath());
+        for(Video x: mongoValues){
+            String path = x.getVidPath();
+            videos.add(path);
         }
-
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems));
-
-
-    }
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id)
-    {
-        super.onListItemClick(l, v, position, id);
-
-        String selectedValue = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
     }
 
-    /*private void fillList() {
-//        videos.add("Burger");
-//        videos.add("Pizza");
-//        videos.add("Chips");
-//        videos.add("Beer");
-//        videos.add("Water");
-//        videos.add("Burger");
-//        videos.add("Pizza");
-//        videos.add("Chips");
-//        videos.add("Beer");
-//        videos.add("Water");
-
-
-    }
-
-    /*private void populateListView() {
+    private void populateListView() {
 
         // Build Adapter
         adapter = new myAdapter();
 
         // Configure ListView
         list.setAdapter(adapter);
+
+        if(list.getCount() == 0){
+            Toast.makeText(getApplicationContext(), "There are no Videos to show", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class myAdapter extends ArrayAdapter<String> {
@@ -128,9 +106,13 @@ public class VideoDisplay extends ListActivity
             // Find the option to work with
             String currentVideo = videos.get(position);
 
+            int indexStart = currentVideo.lastIndexOf("/");
+            int indexEnd = currentVideo.lastIndexOf(".");
+            String fileName = currentVideo.substring(indexStart + 1, indexEnd);
+
             // ItemText
             TextView vidText = (TextView) itemView.findViewById(R.id.vidText);
-            vidText.setText(currentVideo);
+            vidText.setText(fileName);
 
             return itemView;
         }
@@ -143,8 +125,12 @@ public class VideoDisplay extends ListActivity
                 String pressed = videos.get(position);
                 String message = pressed + " pressed";
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-            }
 
+                Uri userFile = Uri.parse(pressed);
+                Intent i = new Intent(VideoDisplay.this, AnalyseActivity.class);
+                i.setData(userFile);
+                startActivity(i);
+            }
         });
-    }*/
+    }
 }

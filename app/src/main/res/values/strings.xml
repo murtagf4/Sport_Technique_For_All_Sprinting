@@ -15,5 +15,6 @@
     <string name="title_activity_preview">PreviewActivity</string>
     <string name="title_activity_comparison">ComparisonActivity</string>
     <string name="title_activity_analysis">AnalysisActivity</string>
+    <string name="title_activity_analyse">AnalyseActivity</string>
 
 </resources>
