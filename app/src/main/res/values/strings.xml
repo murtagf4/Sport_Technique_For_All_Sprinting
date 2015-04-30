@@ -24,5 +24,6 @@
     <string name="text2">&#8211; <b> Fitting in the Outline Image:</b> Fit in the image by standing 5 yards back from the camera. Crouch down with right knee on the ground with both hands on a line and shoulders directly above hands. Raise right knee off the ground until straightened while simultaneously pulling left arm back to 90 degrees until hand is at hip level.\n\n&#8211; Press arrow and start record.\n\n&#8211; The video will last for 2.00 seconds.\n\n&#8211; Press OK/Save. Press Cancel to take another video.</string>
     <string name="h3"><u><i><b>Analyse A Video</b></i></u></string>
     <string name="text3">&#8211; <b> Drawing Tool:</b> (Diagonal Line Button) Draw lines and angles over the video. Press button twice to cancel.\n\n&#8211; <b> Side by Side Comparison:</b> (Rectangles Button) Compare taken video with expert video side by side. Videos can be played separately and simultaneously using the bottom play button.\n\n&#8211; <b> Screenshot:</b> While using the tools, work can be saved by screenshotting.</string>
+    <string name="login">Login/Create Account</string>
 
-    </resources>
+</resources>

@@ -87,7 +87,7 @@ public class CameraActivity extends Activity
         intentVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 2);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        fileUri = saveOutputMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
+        fileUri = saveMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
         intentVideo.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  // set the image file name
 
         // start the Video Capture Intent
@@ -121,7 +121,6 @@ public class CameraActivity extends Activity
             }
             else if (resultCode == RESULT_CANCELED)
             {
-                // User cancelled the video capture
                 // user cancelled recording
                 Toast.makeText(getApplicationContext(),"Video Recording Cancelled", Toast.LENGTH_SHORT).show();
             }
@@ -133,32 +132,17 @@ public class CameraActivity extends Activity
         }
     }
 
-    public void videoControl(VideoView vid, ImageButton button)
-    {
-        if(vid.isPlaying())
-        {
-            button.setImageResource(R.drawable.ic_action_play);
-            vid.pause();
-        }
-        else
-        {
-            button.setImageResource(R.drawable.ic_action_pause);
-            vid.start();
-        }
-        isPlaying = !isPlaying;
-    }
-
 
     /** Create a file Uri for saving an image or video to specific folder
      * https://developer.android.com/guide/topics/media/camera.html#saving-media
      * */
-    public Uri saveOutputMediaFileUri(int type)
+    public Uri saveMediaFileUri(int type)
     {
-        return Uri.fromFile(saveOutputMediaFile(type));
+        return Uri.fromFile(saveMediaFile(type));
     }
 
     /** Create a File for saving an image or video */
-    public File saveOutputMediaFile(int type)
+    public File saveMediaFile(int type)
     {
         // To be safe, you should check that the SDCard is mounted
 

@@ -17,7 +17,7 @@ public class SplashScreen extends Activity
             {
                 try
                 {
-                    sleep(5000);
+                    sleep(4000);
                     Intent mainIntent = new Intent("com.essentialappsfm.sporttechniqueforallsprinting.HomeActivity");
                     startActivity(mainIntent);
                 }

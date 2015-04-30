@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomeActivity extends ActionBarActivity
 {
@@ -32,6 +33,11 @@ public class HomeActivity extends ActionBarActivity
     {
         Intent intent3 = new Intent(this, HelpScreen.class);
         startActivity(intent3);
+    }
+
+    public void handleLogin(View view)
+    {
+        Toast.makeText(getApplicationContext(), "Login Button Pressed",Toast.LENGTH_SHORT).show();
     }
 
     @Override

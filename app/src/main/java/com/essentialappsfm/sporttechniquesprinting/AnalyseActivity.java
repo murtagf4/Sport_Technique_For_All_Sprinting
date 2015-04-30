@@ -31,7 +31,6 @@ public class AnalyseActivity extends Activity {
     private static final String TAG = "Tag";
 
     Tools tool;
-    ImageButton homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

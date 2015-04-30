@@ -63,9 +63,7 @@ public class VideoDisplay extends ActionBarActivity
         GetMongoInstance task = new GetMongoInstance();
         try {
             mongoValues = task.execute(vid1).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -78,7 +76,7 @@ public class VideoDisplay extends ActionBarActivity
     private void populateListView() {
 
         // Build Adapter
-        adapter = new myAdapter();
+        adapter = new VideoAdapter();
 
         // Configure ListView
         list.setAdapter(adapter);
@@ -88,8 +86,8 @@ public class VideoDisplay extends ActionBarActivity
         }
     }
 
-    private class myAdapter extends ArrayAdapter<String> {
-        public myAdapter() {
+    private class VideoAdapter extends ArrayAdapter<String> {
+        public VideoAdapter() {
             // (context of activity, views on screen, content for views)
             super(VideoDisplay.this, R.layout.list_item, videos);
         }
