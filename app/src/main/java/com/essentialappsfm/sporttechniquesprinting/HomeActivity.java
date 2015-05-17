@@ -7,14 +7,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivity extends ActionBarActivity
 {
+    TextView userMessage;
+    String dataCreate;
+
+    private static final int LOGIN_REQUEST_CODE = 100;
+    private static final int CREATE_REQUEST_CODE = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_view);
+        userMessage = (TextView) findViewById(R.id.welcomeText);
+        userMessage.setText("Welcome User");
     }
 
     public void startSession(View view)
@@ -37,7 +46,19 @@ public class HomeActivity extends ActionBarActivity
 
     public void handleLogin(View view)
     {
-        Toast.makeText(getApplicationContext(), "Login Button Pressed",Toast.LENGTH_SHORT).show();
+        Intent intent4 = new Intent(this, LoginActivity.class);
+        startActivityForResult(intent4, LOGIN_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == LOGIN_REQUEST_CODE) {
+            if (resultCode == RESULT_OK)
+            {
+                dataCreate = data.getExtras().getString("createUser");
+                userMessage.setText("Welcome " + dataCreate);
+            }
+        }
     }
 
     @Override

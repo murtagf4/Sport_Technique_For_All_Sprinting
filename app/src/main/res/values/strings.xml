@@ -25,5 +25,6 @@
     <string name="h3"><u><i><b>Analyse A Video</b></i></u></string>
     <string name="text3">&#8211; <b> Drawing Tool:</b> (Diagonal Line Button) Draw lines and angles over the video. Press button twice to cancel.\n\n&#8211; <b> Side by Side Comparison:</b> (Rectangles Button) Compare taken video with expert video side by side. Videos can be played separately and simultaneously using the bottom play button.\n\n&#8211; <b> Screenshot:</b> While using the tools, work can be saved by screenshotting.</string>
     <string name="login">Login/Create Account</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

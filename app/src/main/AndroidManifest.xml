@@ -90,10 +90,19 @@
             android:name=".WatchActivity"
             android:label="Tutorial"
             android:parentActivityName=".HelpScreen"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.essentialappsfm.sporttechniquesprinting.HelpScreen" />
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="landscape" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.essentialappsfm.sporttechniquesprinting.HomeActivity" />
         </activity>
     </application>
 
