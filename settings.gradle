@@ -1,1 +1,1 @@
-include ':app', ':mongo-java-driver-2.13.0'
+include ':app', ':mongo-java-driver-2.13.0', ':facebook'
