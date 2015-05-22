@@ -71,16 +71,6 @@
         android:layout_alignStart="@+id/passwordInput"
         android:onClick="login" />
 
-    <ImageButton
-        android:id="@+id/facebookLogin"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_alignLeft="@+id/passwordInput"
-        android:layout_alignStart="@+id/passwordInput"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/ic_facebook"/>
-
     <View
         android:layout_width="1dp"
         android:layout_height="fill_parent"

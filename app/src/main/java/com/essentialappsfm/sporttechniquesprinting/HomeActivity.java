@@ -16,7 +16,6 @@ public class HomeActivity extends ActionBarActivity
     String dataCreate;
 
     private static final int LOGIN_REQUEST_CODE = 100;
-    private static final int CREATE_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +51,8 @@ public class HomeActivity extends ActionBarActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LOGIN_REQUEST_CODE) {
-            if (resultCode == RESULT_OK)
-            {
-                dataCreate = data.getExtras().getString("createUser");
-                userMessage.setText("Welcome " + dataCreate);
-            }
-        }
+        dataCreate = data.getExtras().getString("createUser");
+        userMessage.setText("Welcome " + dataCreate);
     }
 
     @Override

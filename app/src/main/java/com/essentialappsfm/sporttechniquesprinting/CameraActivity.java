@@ -1,42 +1,20 @@
 package com.essentialappsfm.sporttechniquesprinting;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.graphics.PixelFormat;
-import android.hardware.Camera;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Surface;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.MediaController;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 
 public class CameraActivity extends Activity
@@ -46,7 +24,7 @@ public class CameraActivity extends Activity
     private Intent intentVideo;
     private Uri fileUri;
     private String stringUri;
-    private String username = "Fergus";
+    private String userPassword = "fhfhf";
     boolean isPlaying = true;
     private static final String TAG = "Tag";
 
@@ -106,7 +84,7 @@ public class CameraActivity extends Activity
 
                 Video myVideo = new Video();
                 myVideo.id = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
-                myVideo.user = username;
+                myVideo.password = userPassword;
                 myVideo.vidPath = stringUri;
 
                 SaveMongoInstance task = new SaveMongoInstance();
@@ -121,7 +99,7 @@ public class CameraActivity extends Activity
             }
             else if (resultCode == RESULT_CANCELED)
             {
-                // user cancelled recording
+                // password cancelled recording
                 Toast.makeText(getApplicationContext(),"Video Recording Cancelled", Toast.LENGTH_SHORT).show();
             }
             else

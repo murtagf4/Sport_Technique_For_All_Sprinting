@@ -1,7 +1,5 @@
 package com.essentialappsfm.sporttechniquesprinting;
 
-import android.provider.Settings.Secure;
-
 /**
  * Created by Fergus on 04/03/2015.
  */
@@ -34,8 +32,8 @@ public class DatabaseEntry
     // foramts the details of each video to be shown
     public String createVideoDetails(Video video)
     {
-        return String.format("{\"user\": \"%s\", "
+        return String.format("{\"password\": \"%s\", "
                         + "\"vidPath\": \"%s\"}",
-                video.user, video.vidPath);
+                video.password, video.vidPath);
     }
 }

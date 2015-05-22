@@ -6,23 +6,23 @@ package com.essentialappsfm.sporttechniquesprinting;
 public class Video
 {
     String id;
-    public String user;
+    public String password;
     public String vidPath;
 
     public String getId() {
         return id;
     }
 
-    public void setId(String user) {
-        this.user = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getVidPath() {
@@ -36,6 +36,6 @@ public class Video
     @Override
     public String toString()
     {
-        return "Video [User=" + user + ", vidPath=" + vidPath + "]";
+        return "Video [password=" + password + ", vidPath=" + vidPath + "]";
     }
 }
