@@ -124,7 +124,10 @@ public class AnalyseActivity extends Activity {
     public void advanceSide(View view)
     {
         Intent i = new Intent(this, ComparisonActivity.class);
+        String userID = getIntent().getExtras().getString("userData");
         i.setData(userVid);
+        i.putExtra("id", userID);
+        Toast.makeText(getApplicationContext(),"User = " + userID, Toast.LENGTH_SHORT).show();
         startActivity(i);
     }
 

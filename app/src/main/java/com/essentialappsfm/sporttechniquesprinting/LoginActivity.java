@@ -24,6 +24,8 @@ public class LoginActivity extends ActionBarActivity {
     String stringPassword1;
     String stringPassword2;
 
+    boolean isLoggedIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +44,16 @@ public class LoginActivity extends ActionBarActivity {
 
         if(stringLogin1.matches("") || stringLogin2.matches(""))
             Toast.makeText(getApplicationContext(), "You did not fill in all the credentials", Toast.LENGTH_SHORT).show();
-        else
+        else {
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-        Intent sendLogin = new Intent();
-        sendLogin.putExtra("createUser", stringLogin1);
-        setResult(RESULT_OK, sendLogin);
-        finish();
+            isLoggedIn = true;
+            Intent sendLogin = new Intent();
+            sendLogin.putExtra("createUser", stringLogin1);
+            sendLogin.putExtra("createPassword", stringLogin2);
+            sendLogin.putExtra("logged", isLoggedIn);
+            setResult(RESULT_OK, sendLogin);
+            finish();
+        }
     }
 
     public void create(View view){
@@ -61,8 +67,11 @@ public class LoginActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
         else {
             Toast.makeText(getApplicationContext(), "Account Created Sucessfully", Toast.LENGTH_SHORT).show();
+            isLoggedIn = true;
             Intent sendAccount = new Intent();
             sendAccount.putExtra("createUser", stringUsername);
+            sendAccount.putExtra("createPassword", stringPassword1);
+            sendAccount.putExtra("logged", isLoggedIn);
             setResult(RESULT_OK, sendAccount);
             finish();
         }

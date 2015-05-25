@@ -13,7 +13,9 @@ import android.widget.Toast;
 public class HomeActivity extends ActionBarActivity
 {
     TextView userMessage;
-    String dataCreate;
+    String dataCreate1;
+    String dataCreate2;
+    boolean logged;
 
     private static final int LOGIN_REQUEST_CODE = 100;
 
@@ -28,12 +30,18 @@ public class HomeActivity extends ActionBarActivity
     public void startSession(View view)
     {
         Intent intent1 = new Intent(this, PreviewActivity.class);
+        intent1.putExtra("userAccount", dataCreate1);
+        intent1.putExtra("passAccount", dataCreate2);
+        intent1.putExtra("log", logged);
         startActivity(intent1);
     }
 
     public void showVideos(View view)
     {
         Intent intent2 = new Intent(this, VideoDisplay.class);
+        intent2.putExtra("userAccount", dataCreate1);
+        intent2.putExtra("passAccount", dataCreate2);
+        intent2.putExtra("log", logged);
         startActivity(intent2);
     }
 
@@ -51,8 +59,10 @@ public class HomeActivity extends ActionBarActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        dataCreate = data.getExtras().getString("createUser");
-        userMessage.setText("Welcome " + dataCreate);
+        dataCreate1 = data.getExtras().getString("createUser");
+        dataCreate2 = data.getExtras().getString("createPassword");
+        logged = data.getExtras().getBoolean("logged");
+        userMessage.setText("Welcome " + dataCreate1);
     }
 
     @Override

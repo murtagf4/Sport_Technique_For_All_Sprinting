@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class CameraActivity extends Activity
     private Intent intentVideo;
     private Uri fileUri;
     private String stringUri;
-    private String userPassword = "fhfhf";
+    private String userPassword = "default";
     boolean isPlaying = true;
     private static final String TAG = "Tag";
 
@@ -82,10 +83,21 @@ public class CameraActivity extends Activity
                 // Video captured and saved to fileUri Intent
                 stringUri = fileUri.toString();
 
+                Intent iget = getIntent();
+                String userID = iget.getExtras().getString("user");
+                String passID = iget.getExtras().getString("pass");
+
                 Video myVideo = new Video();
-                myVideo.id = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
-                myVideo.password = userPassword;
-                myVideo.vidPath = stringUri;
+                if(userID != null) {
+                    myVideo.id = userID;
+                    myVideo.password = passID;
+                    myVideo.vidPath = stringUri;
+                }
+                else{
+                    myVideo.id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    myVideo.password = passID;
+                    myVideo.vidPath = stringUri;
+                }
 
                 SaveMongoInstance task = new SaveMongoInstance();
                 task.execute(myVideo);
@@ -93,6 +105,7 @@ public class CameraActivity extends Activity
                 Toast.makeText(this, "Video Saved to:" + stringUri, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(this, AnalyseActivity.class);
+                intent.putExtra("userData", userID);
                 intent.setData(fileUri);
                 startActivity(intent);
 

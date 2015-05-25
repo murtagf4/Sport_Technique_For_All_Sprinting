@@ -42,6 +42,8 @@ public class VideoDisplay extends ActionBarActivity
     private ArrayAdapter<String> adapter;
     private ListView list;
 
+    String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,8 +60,15 @@ public class VideoDisplay extends ActionBarActivity
 
     private void fillList() {
         //Get your cloud contacts
+        Intent iget = getIntent();
+        userID = iget.getExtras().getString("userAccount");
+
         Video vid1 = new Video();
-        vid1.id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        if(userID != null)
+            vid1.id = userID;
+        else
+            vid1.id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
         GetMongoInstance task = new GetMongoInstance();
         try {
             mongoValues = task.execute(vid1).get();
@@ -122,12 +131,23 @@ public class VideoDisplay extends ActionBarActivity
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 String pressed = videos.get(position);
                 String message = pressed + " pressed";
+                Uri userFile = Uri.parse(pressed);
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
-                Uri userFile = Uri.parse(pressed);
-                Intent i = new Intent(VideoDisplay.this, AnalyseActivity.class);
-                i.setData(userFile);
-                startActivity(i);
+                String uriCheck = getIntent().getExtras().getString("vidUri");
+
+                if(uriCheck != null) {
+                    Intent setVideo = new Intent();
+                    setVideo.setData(userFile);
+                    setResult(RESULT_OK, setVideo);
+                    finish();
+                }
+                else{
+                    Intent i = new Intent(VideoDisplay.this, AnalyseActivity.class);
+                    i.setData(userFile);
+                    i.putExtra("userData", userID);
+                    startActivity(i);
+                }
             }
         });
     }
