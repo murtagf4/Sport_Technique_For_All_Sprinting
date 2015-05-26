@@ -136,17 +136,17 @@ public class VideoDisplay extends ActionBarActivity
 
                 String uriCheck = getIntent().getExtras().getString("vidUri");
 
+                Intent setVideo;
                 if(uriCheck != null) {
-                    Intent setVideo = new Intent();
+                    setVideo = new Intent();
                     setVideo.setData(userFile);
                     setResult(RESULT_OK, setVideo);
                     finish();
-                }
-                else{
-                    Intent i = new Intent(VideoDisplay.this, AnalyseActivity.class);
-                    i.setData(userFile);
-                    i.putExtra("userData", userID);
-                    startActivity(i);
+                } else{
+                    setVideo = new Intent(getApplicationContext(), AnalyseActivity.class);
+                    setVideo.setData(userFile);
+                    setVideo.putExtra("userData", userID);
+                    startActivity(setVideo);
                 }
             }
         });

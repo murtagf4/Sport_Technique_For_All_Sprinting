@@ -29,6 +29,8 @@ public class CameraActivity extends Activity
     boolean isPlaying = true;
     private static final String TAG = "Tag";
 
+    String userID;
+
     private boolean isCameraSupported()
     {
         if(getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
@@ -84,7 +86,7 @@ public class CameraActivity extends Activity
                 stringUri = fileUri.toString();
 
                 Intent iget = getIntent();
-                String userID = iget.getExtras().getString("user");
+                userID = iget.getExtras().getString("user");
                 String passID = iget.getExtras().getString("pass");
 
                 Video myVideo = new Video();
@@ -123,7 +125,13 @@ public class CameraActivity extends Activity
         }
     }
 
-
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent i = new Intent(this, PreviewActivity.class);
+        i.putExtra("userAccount", userID);
+        startActivity(i);
+    }
     /** Create a file Uri for saving an image or video to specific folder
      * https://developer.android.com/guide/topics/media/camera.html#saving-media
      * */

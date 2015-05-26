@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/mongo-java-driver-2.13.0/mongo-java-driver-2.13.0.iml" filepath="$PROJECT_DIR$/mongo-java-driver-2.13.0/mongo-java-driver-2.13.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robolectric-2.3-jar-with-dependencies/robolectric-2.3-jar-with-dependencies.iml" filepath="$PROJECT_DIR$/robolectric-2.3-jar-with-dependencies/robolectric-2.3-jar-with-dependencies.iml" />
     </modules>
   </component>
 </project>

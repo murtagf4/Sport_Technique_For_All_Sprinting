@@ -127,7 +127,7 @@ public class AnalyseActivity extends Activity {
         String userID = getIntent().getExtras().getString("userData");
         i.setData(userVid);
         i.putExtra("id", userID);
-        Toast.makeText(getApplicationContext(),"User = " + userID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"User = " + userID, Toast.LENGTH_SHORT).show();
         startActivity(i);
     }
 

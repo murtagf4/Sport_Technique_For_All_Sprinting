@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/facebook" />
             <option value="$PROJECT_DIR$/mongo-java-driver-2.13.0" />
+            <option value="$PROJECT_DIR$/robolectric-2.3-jar-with-dependencies" />
           </set>
         </option>
       </GradleProjectSettings>
