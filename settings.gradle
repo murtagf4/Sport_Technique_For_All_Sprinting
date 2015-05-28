@@ -1,1 +1,1 @@
-include ':app', ':mongo-java-driver-2.13.0', ':facebook', ':robolectric-2.3-jar-with-dependencies'
+include ':app', ':mongo-java-driver-2.13.0', ':facebook'
